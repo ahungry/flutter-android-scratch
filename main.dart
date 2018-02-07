@@ -1,5 +1,6 @@
-import 'dart:convert';
-import 'dart:io';
+// import 'dart:convert';
+// import 'dart:io';
+import 'dart:async';
 
 import 'package:flutter/material.dart';
 
@@ -51,7 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = new TextEditingController();
   var _ipAddress = 'Unknown';
 
-  _getIPAddress() async {
+  Future<Null> _getIPAddress() async {
     String result;
     var ip = new IPAddress();
     result = await ip.get();
