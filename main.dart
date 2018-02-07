@@ -54,10 +54,13 @@ class _MyHomePageState extends State<MyHomePage> {
   final TextEditingController _controller = new TextEditingController();
   var _ipAddress = 'Unknown';
 
-  Future<Null> _getIPAddress() async {
+  Future<Null> _getIPAddress(BuildContext context) async {
     String result;
     var ip = new IPAddress();
     result = await ip.get();
+
+    Scaffold.of(context).showSnackBar(new SnackBar(
+      content: new Text("Snack time!")));
 
     if (!mounted) return;
 
@@ -79,42 +82,49 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
-  @override
-  Widget build(BuildContext context) {
+  Widget buildPage(BuildContext context) {
     var page;
 
-    if (_ipAddress != 'Unknown') {
-      page = (new HomeView(
-        context: context,
-        ipAddress: _ipAddress,
-        controller: _controller,
-        getIPAddress: _getIPAddress,
-      )).getCenter(widget.title);
-    }
+    page = (new HomeView(
+      context: context,
+      ipAddress: _ipAddress,
+      controller: _controller,
+      getIPAddress: _getIPAddress,
+    )).getCenter(widget.title);
 
-    if (_ipAddress == 'Unknown') {
-      // Scaffold.of(context).showSnackBar(new SnackBar(
-      //   content: new Text("Snack time!")));
+    // if (_ipAddress != 'Unknown') {
+    //   page = (new HomeView(
+    //     context: context,
+    //     ipAddress: _ipAddress,
+    //     controller: _controller,
+    //     getIPAddress: _getIPAddress,
+    //   )).getCenter(widget.title);
+    // }
 
-      page = (new AltView(
-        context: context,
-        ipAddress: _ipAddress,
-        controller: _controller,
-        getIPAddress: _getIPAddress,
-      )); // .getCenter('good job!');
+    // if (_ipAddress == 'Unknown') {
+    //   Scaffold.of(context).showSnackBar(new SnackBar(
+    //     content: new Text("Snack time!")));
 
-    }
+    //   page = (new AltView(
+    //     context: context,
+    //     ipAddress: _ipAddress,
+    //     controller: _controller,
+    //     getIPAddress: _getIPAddress,
+    //   )); // .getCenter('good job!');
+    // }
 
+    return new SafeArea(
+      top: false,
+      bottom: false,
+      child: page,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return new Scaffold(
       appBar: new AppBar(title: new Text(widget.title)),
-      body: page,
-      floatingActionButton: new FloatingActionButton(
-        onPressed: () {
-          _getIPAddress();
-        },
-        tooltip: 'Fetch IP',
-        child: new Icon(Icons.add),
-      )
+      body: new Builder(builder: buildPage),
     );
   }
 }

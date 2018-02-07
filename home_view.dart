@@ -55,6 +55,13 @@ class HomeView {
             '$ipAddress',
             style: Theme.of(context).textTheme.display1,
           ),
+          //new FloatingActionButton(
+          new RaisedButton(
+            onPressed: () {
+              getIPAddress(context);
+            },
+            child: new Text('Get your IP'),
+          ),
         ],
       ),
     );
