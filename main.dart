@@ -3,6 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 
+import 'ip_address.dart';
+
 void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
@@ -50,28 +52,9 @@ class _MyHomePageState extends State<MyHomePage> {
   var _ipAddress = 'Unknown';
 
   _getIPAddress() async {
-    var url = 'https://httpbin.org/ip';
-    var httpClient = new HttpClient();
-
     String result;
-
-    try {
-      // var uri = new Uri.http(
-      //     'example.com', '/path1/path2', {'param1': 42, 'param2': 'foo' });
-      var request = await httpClient.getUrl(Uri.parse(url));
-      var response = await request.close();
-
-      if (response.statusCode == HttpStatus.OK) {
-        var json = await response.transform(UTF8.decoder).join();
-        var data = JSON.decode(json);
-        result = data['origin'];
-      } else {
-        result =
-            'Error getting IP address:\nHttp status ${response.statuscode}';
-      }
-    } catch (exception) {
-      result = 'Failed getting IP address';
-    }
+    var ip = new IPAddress();
+    result = await ip.get();
 
     if (!mounted) return;
 
@@ -152,9 +135,8 @@ class _MyHomePageState extends State<MyHomePage> {
           _getIPAddress();
 
           // Scaffold.of(context).showSnackBar
-          this.snackBar = new SnackBar(
-            content: new Text("Fetched!"),
-          );
+          //   content: new Text("Fetched!"),
+          // );
         },
         tooltip: 'Increment',
         child: new Icon(Icons.add),
