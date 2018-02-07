@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 
 import 'ip_address.dart';
 import 'home_view.dart';
+import 'alt_view.dart';
 
 void main() => runApp(new MyApp());
 
@@ -80,11 +81,40 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return (new HomeView(
-      context: context,
-      ipAddress: _ipAddress,
-      controller: _controller,
-      getIPAddress: _getIPAddress,
-    )).getScaffold(widget.title);
+    var page;
+
+    if (_ipAddress != 'Unknown') {
+      page = (new HomeView(
+        context: context,
+        ipAddress: _ipAddress,
+        controller: _controller,
+        getIPAddress: _getIPAddress,
+      )).getCenter(widget.title);
+    }
+
+    if (_ipAddress == 'Unknown') {
+      // Scaffold.of(context).showSnackBar(new SnackBar(
+      //   content: new Text("Snack time!")));
+
+      page = (new AltView(
+        context: context,
+        ipAddress: _ipAddress,
+        controller: _controller,
+        getIPAddress: _getIPAddress,
+      )); // .getCenter('good job!');
+
+    }
+
+    return new Scaffold(
+      appBar: new AppBar(title: new Text(widget.title)),
+      body: page,
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          _getIPAddress();
+        },
+        tooltip: 'Fetch IP',
+        child: new Icon(Icons.add),
+      )
+    );
   }
 }
