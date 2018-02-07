@@ -5,16 +5,13 @@ import 'package:flutter/material.dart';
 
 void main() => runApp(new MyApp());
 
-class MyApp extends StatelessWidget
-{
+class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp
-      (
-       title: 'Flutter Demo',
-       theme: new ThemeData
-       (
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
         // This is the theme of your application.
         //
         // Try running your application with "flutter run". You'll see the
@@ -24,9 +21,9 @@ class MyApp extends StatelessWidget
         // or press Run > Flutter Hot Reload in IntelliJ). Notice that the
         // counter didn't reset back to zero; the application is not restarted.
         primarySwatch: Colors.blue,
-        ),
-       home: new MyHomePage(title: 'What\'s my ip?'),
-       );
+      ),
+      home: new MyHomePage(title: 'What\'s my ip?'),
+    );
   }
 }
 
@@ -53,46 +50,47 @@ class _MyHomePageState extends State<MyHomePage> {
   var _ipAddress = 'Unknown';
 
   _getIPAddress() async {
-                         var url = 'https://httpbin.org/ip';
-                         var httpClient = new HttpClient();
+    var url = 'https://httpbin.org/ip';
+    var httpClient = new HttpClient();
 
-                         String result;
+    String result;
 
-                         try {
-                           // var uri = new Uri.http(
-                           //     'example.com', '/path1/path2', {'param1': 42, 'param2': 'foo' });
-                           var request = await httpClient.getUrl(Uri.parse(url));
-                           var response = await request.close();
+    try {
+      // var uri = new Uri.http(
+      //     'example.com', '/path1/path2', {'param1': 42, 'param2': 'foo' });
+      var request = await httpClient.getUrl(Uri.parse(url));
+      var response = await request.close();
 
-                           if (response.statusCode == HttpStatus.OK) {
-                             var json = await response.transform(UTF8.decoder).join();
-                             var data = JSON.decode(json);
-                             result = data['origin'];
-                           } else {
-                             result = 'Error getting IP address:\nHttp status ${response.statuscode}';
-                           }
-                         } catch (exception) {
-                           result = 'Failed getting IP address';
-                         }
+      if (response.statusCode == HttpStatus.OK) {
+        var json = await response.transform(UTF8.decoder).join();
+        var data = JSON.decode(json);
+        result = data['origin'];
+      } else {
+        result =
+            'Error getting IP address:\nHttp status ${response.statuscode}';
+      }
+    } catch (exception) {
+      result = 'Failed getting IP address';
+    }
 
-                         if (!mounted) return;
+    if (!mounted) return;
 
-                         setState(() {
-                             _ipAddress = result;
-                           });
+    setState(() {
+      _ipAddress = result;
+    });
   }
 
   int _counter = 0;
 
   void _incrementCounter() {
     setState(() {
-        // This call to setState tells the Flutter framework that something has
-        // changed in this State, which causes it to rerun the build method below
-        // so that the display can reflect the updated values. If we changed
-        // _counter without calling setState(), then the build method would not be
-        // called again, and so nothing would appear to happen.
-        _counter++;
-      });
+      // This call to setState tells the Flutter framework that something has
+      // changed in this State, which causes it to rerun the build method below
+      // so that the display can reflect the updated values. If we changed
+      // _counter without calling setState(), then the build method would not be
+      // called again, and so nothing would appear to happen.
+      _counter++;
+    });
   }
 
   @override
@@ -104,52 +102,63 @@ class _MyHomePageState extends State<MyHomePage> {
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
     return new Scaffold(
-                        appBar: new AppBar(
-                                           // Here we take the value from the MyHomePage object that was created by
-                                           // the App.build method, and use it to set our appbar title.
-                                           title: new Text(widget.title),
-                                           ),
-                        body: new Center(
-                                         // Center is a layout widget. It takes a single child and positions it
-                                         // in the middle of the parent.
-                                         child: new Column(
-                                                           // Column is also layout widget. It takes a list of children and
-                                                           // arranges them vertically. By default, it sizes itself to fit its
-                                                           // children horizontally, and tries to be as tall as its parent.
-                                                           //
-                                                           // Invoke "debug paint" (press "p" in the console where you ran
-                                                           // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
-                                                           // window in IntelliJ) to see the wireframe for each widget.
-                                                           //
-                                                           // Column has various properties to control how it sizes itself and
-                                                           // how it positions its children. Here we use mainAxisAlignment to
-                                                           // center the children vertically; the main axis here is the vertical
-                                                           // axis because Columns are vertical (the cross axis would be
-                                                           // horizontal).
-                                                           mainAxisAlignment: MainAxisAlignment.center,
-                                                           children: <Widget>[
-                                                                              new TextField(
-                                                                                            controller: _controller,
-                                                                                            decoration: new InputDecoration(
-                                                                                                                            hintText: 'Type something',
-                                                                                                                            ),
-                                                                                            ),
-                                                                              new Text('Your input was: ' + _controller.text),
-                                                                              new Text(
-                                                                                       'Your IP address is:',
-                                                                                       ),
-                                                                              new Text(
-                                                                                       '$_ipAddress',
-                                                                                       style: Theme.of(context).textTheme.display1,
-                                                                                       ),
-                                                           ],
-                                                           ),
-                                         ),
-                        floatingActionButton: new FloatingActionButton(
-                                                                       onPressed: _getIPAddress,
-                                                                       tooltip: 'Increment',
-                                                                       child: new Icon(Icons.add),
-                                                                       ), // This trailing comma makes auto-formatting nicer for build methods.
-                        );
+      // snackBar: new SnackBar
+      // (
+      // 	content: new Text('flutter rocks'),
+      // 	),
+      appBar: new AppBar(
+        // Here we take the value from the MyHomePage object that was created by
+        // the App.build method, and use it to set our appbar title.
+        title: new Text(widget.title),
+      ),
+      body: new Center(
+        // Center is a layout widget. It takes a single child and positions it
+        // in the middle of the parent.
+        child: new Column(
+          // Column is also layout widget. It takes a list of children and
+          // arranges them vertically. By default, it sizes itself to fit its
+          // children horizontally, and tries to be as tall as its parent.
+          //
+          // Invoke "debug paint" (press "p" in the console where you ran
+          // "flutter run", or select "Toggle Debug Paint" from the Flutter tool
+          // window in IntelliJ) to see the wireframe for each widget.
+          //
+          // Column has various properties to control how it sizes itself and
+          // how it positions its children. Here we use mainAxisAlignment to
+          // center the children vertically; the main axis here is the vertical
+          // axis because Columns are vertical (the cross axis would be
+          // horizontal).
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            new TextField(
+              controller: _controller,
+              decoration: new InputDecoration(
+                hintText: 'Type something',
+              ),
+            ),
+            new Text('Your input was: ' + _controller.text),
+            new Text(
+              'Your IP address is:',
+            ),
+            new Text(
+              '$_ipAddress',
+              style: Theme.of(context).textTheme.display1,
+            ),
+          ],
+        ),
+      ),
+      floatingActionButton: new FloatingActionButton(
+        onPressed: () {
+          _getIPAddress();
+
+          // Scaffold.of(context).showSnackBar
+          this.snackBar = new SnackBar(
+            content: new Text("Fetched!"),
+          );
+        },
+        tooltip: 'Increment',
+        child: new Icon(Icons.add),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
   }
 }
