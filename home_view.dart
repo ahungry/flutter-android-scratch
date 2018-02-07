@@ -21,18 +21,12 @@ class HomeView {
   // The Flutter framework has been optimized to make rerunning build methods
   // fast, so that you can just rebuild anything that needs updating rather
   // than having to individually change instances of widgets.
-  Scaffold getScaffold (StatefulWidget widget) {
-    // Blub
-
+  Scaffold getScaffold (String appBarTitle) {
     return new Scaffold(
-      // snackBar: new SnackBar
-      // (
-      // 	content: new Text('flutter rocks'),
-      // 	),
       appBar: new AppBar(
         // Here we take the value from the MyHomePage object that was created by
         // the App.build method, and use it to set our appbar title.
-        title: new Text(widget.title as String),
+        title: new Text(appBarTitle),
       ),
       body: new Center(
         // Center is a layout widget. It takes a single child and positions it

@@ -85,6 +85,6 @@ class _MyHomePageState extends State<MyHomePage> {
       ipAddress: _ipAddress,
       controller: _controller,
       getIPAddress: _getIPAddress,
-    )).getScaffold(widget);
+    )).getScaffold(widget.title);
   }
 }
